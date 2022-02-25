@@ -1,21 +1,54 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>BlackJack</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-  <div class="table">
-      <div class="dealer"></div>
-      <div class="player">
-        <div class="cards"></div>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="board">
+      <div class="dealer">
+        <div class="cardHolder">
+          <div class="card"></div>
+        </div>
       </div>
-      
-  </div>
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-  <script src="index.js"></script>
-</body>
+      <div id="rules"><h1>blackjack pays 3 to 2</h1>
+        <h2>Dealer must draw to 16, and stand on all 17's</h2></div>
+
+      <div class="player">
+        <div class="cardHolder">
+          <div class="card">
+            <div class="cardText"><h3>&spades;<br>A</h3></div>
+            <div class="cardSuit">&spades;</div>
+          </div>
+        </div>
+        <div class="controls">
+          <button id="hitButton">HIT</button>
+          <button id="standButton">STAND</button>
+        </div>
+        <form id="startForm">
+          <label class="form-label" for="name">Name</label>
+          <input type="text" name="Name" id="name">
+          <label class="form-label" for="NumberOfDecks">Number Of Decks</label>
+        	<select name="numberOfDecks" id="numberOfDecks">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+          </select>
+        <button type="submit">Submit</button>
+      </form>
+      </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <!-- <script src="circletype.min.js"></script> -->
+    <script src="index.js"></script>
+  </body>
 </html>

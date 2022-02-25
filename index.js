@@ -3,14 +3,15 @@
 // the flexibility to use this class even in another game card.
 class Deck {
   constructor(numOfDecks) {
-    //--------------------------- deck properties ---------------------//
+//---------- deck properties
     this.numOfdecks = numOfDecks;
     this.suits = ["spades", "clubs", "diamonds", "hearts"];
     this.ranks = ["A", 2, 3, 4, 5, 6, 7, 8, 9, 10, "J", "Q", "K"];
     this.createDeck(numOfDecks);
     this.shuffle();
   }
-  //--------------------------- deck methods ------------------------//
+
+//---------- deck methods
   createDeck(numOfDecks = 1) {
     // create a deck with n decks inside (normally is played between 1 and 8)
     const { ranks, suits } = this;
@@ -40,13 +41,13 @@ class Deck {
 //----------------------------- player class ----------------------//
 class Player {
   constructor(name = "Player1", points = 200) {
-    //----------------------------- player propieties -----------------//
+//---------- player propieties
     this.name = name;
     this.points = points;
     this.hand = [];
   }
 
-  //----------------------------- player methods --------------------//
+//---------- player methods
   drawCards(number = 1, deck) {
     const { hand } = this;
     for (let i = 0; i < number; i++) {
@@ -85,15 +86,7 @@ class Player {
     console.log(handValue);
   }
 
-  checkBusted() {
-    const { handValue } = this;
-    if (handValue > 21) {
-      return console.log("you went busted!");
-    } else if (handValue <= 21) {
-      return console.log("keep playing, what could go wrong?");
-    }
-  }
-  checkBlackjack() {
+  isBlackjack() {
     const { handValue, hand } = this;
     let blackjack;
     if (hand.length === 2 && handValue === 21) {
@@ -106,46 +99,85 @@ class Player {
   }
 }
 
-//-----------------------------  game setup --------------------//
-const mainDeck = new Deck(1);
-const player1 = new Player();
-const cpu = new Player("cpu");
-
-//-----------------------------  game actions --------------------//
-function start() {
-  player1.drawCards(2, mainDeck);
-  player1.checkBlackjack();
-  cpu.drawCards(1, mainDeck);
-}
-
-function restart() {
-  player1.discardHand();
-  cpu.discardHand();
-  mainDeck.createDeck(mainDeck.numOfDecks);
-  mainDeck.shuffle();
-  start();
-}
-
-function hit(player) {
-  player.drawCards(1, mainDeck);
-  player.checkBusted();
-}
-
-function stand() {
-  while (cpu.handValue < 17) {
+//----------------------------- game class ----------------------//
+class Game {
+  constructor(playerName = "Player", numOfDecks) {
+//---------- game propieties
+    this.playerName = playerName;
+    this.numOfDecks = numOfDecks;
+  }
+//---------- game methods
+  start() {
+    const mainDeck = new Deck(this.numOfDecks);
+    this.mainDeck = mainDeck;
+    const cpu = new Player("cpu");
+    this.cpu = cpu;
+    const player = new Player(this.playerName);
+    this.player = player;
+    player.drawCards(2, mainDeck);
+    player.isBlackjack();
     cpu.drawCards(1, mainDeck);
   }
-  cpu.checkBlackjack();
-  if (player1.blackjack === true && cpu.blackjack === false) {
-    console.log("you won with a Blackjack!");
-  } else if ((player1.blackjack === true && cpu.blackjack === true) || player1.handValue === cpu.handValue) {
-    console.log("stand-off");
-  } else if (player1.handValue < cpu.handValue && cpu.handValue <= 21) {
-    console.log("you lost");
-  } else {
-    console.log("you win");
+  restart() {
+    this.player.discardHand();
+    this.cpu.discardHand();
+    const mainDeck = new Deck(this.numOfDecks);
+    this.mainDeck = mainDeck;
+    this.player.drawCards(2, this.mainDeck);
+    this.player.isBlackjack();
+    this.cpu.drawCards(1, this.mainDeck);
+  }
+  hit() {
+    this.player.drawCards(1, this.mainDeck);
+    this.isBust(this.player);
+  }
+  stand() {
+    while (this.cpu.handValue < 17) {
+      this.cpu.drawCards(1, this.mainDeck);
+    }
+    this.cpu.isBlackjack();
+    if (this.player.blackjack === true && this.cpu.blackjack === false) {
+      console.log("you won with a Blackjack!");
+      this.player.points = this.player.points + 20 * 1.5;
+    } else if ((this.player.blackjack === true && this.cpu.blackjack === true) || this.player.handValue === this.cpu.handValue) {
+      console.log("stand-off");
+    } else if (this.player.handValue < this.cpu.handValue && this.cpu.handValue <= 21) {
+      console.log("you lost");
+      this.player.points = this.player.points - 20;
+    } else {
+      console.log("you win");
+      this.player.points = this.player.points + 20;
+    }console.log(this.player.points)
+  }
+  isBust(player) {
+    if (player.handValue > 21) {
+      return console.log("you went bust!");
+    } else if (player.handValue <= 21) {
+      return console.log("keep playing, what could go wrong?");
+    }
   }
 }
 
-//-----------------------------  game start --------------------//
-start();
+//----------------------------- controls? class? ----------------------//
+$('#hitButton').on('click', function() {
+  game.hit()
+})
+
+$('#standButton').on('click', function() {
+  game.stand()
+})
+$('#startForm').on('submit', function(event) {
+  event.preventDefault();
+let name = $('#startForm').find('#name').val()
+let numberOfDecks = $('#startForm').find('#numberOfDecks').val()
+  game = new Game(name, numberOfDecks);
+game.start()
+})
+//----------------------------- game start ----------------------//
+
+
+
+
+
+// const circleType = new CircleType(document.getElementById('rules'));
+// circleType.radius(200).dir(-1);
