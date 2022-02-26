@@ -3,15 +3,15 @@
 // the flexibility to use this class even in another game card.
 class Deck {
   constructor(numOfDecks) {
-//---------- deck properties
+    //---------- deck properties
     this.numOfdecks = numOfDecks;
-    this.suits = ["spades", "clubs", "diamonds", "hearts"];
+    this.suits = ["&spades;", "&clubs;", "&diams;", "&hearts;"];
     this.ranks = ["A", 2, 3, 4, 5, 6, 7, 8, 9, 10, "J", "Q", "K"];
     this.createDeck(numOfDecks);
     this.shuffle();
   }
 
-//---------- deck methods
+  //---------- deck methods
   createDeck(numOfDecks = 1) {
     // create a deck with n decks inside (normally is played between 1 and 8)
     const { ranks, suits } = this;
@@ -40,19 +40,21 @@ class Deck {
 
 //----------------------------- player class ----------------------//
 class Player {
-  constructor(name = "Player1", points = 200) {
-//---------- player propieties
+  constructor(name = "Player", points = 200) {
+    //---------- player propieties
     this.name = name;
     this.points = points;
     this.hand = [];
   }
 
-//---------- player methods
+  //---------- player methods
   drawCards(number = 1, deck) {
-    const { hand } = this;
+    const { hand, name } = this;
     for (let i = 0; i < number; i++) {
       let card = deck.cards.pop();
       hand.push(card);
+      // testing!!
+      renderCard(name, hand, card);
     }
     this.countHand();
   }
@@ -84,6 +86,7 @@ class Player {
     });
     this.handValue = handValue;
     console.log(handValue);
+    renderHandValue(this.name, handValue);
   }
 
   isBlackjack() {
@@ -102,11 +105,11 @@ class Player {
 //----------------------------- game class ----------------------//
 class Game {
   constructor(playerName = "Player", numOfDecks) {
-//---------- game propieties
+    //---------- game propieties
     this.playerName = playerName;
     this.numOfDecks = numOfDecks;
   }
-//---------- game methods
+  //---------- game methods
   start() {
     const mainDeck = new Deck(this.numOfDecks);
     this.mainDeck = mainDeck;
@@ -147,7 +150,8 @@ class Game {
     } else {
       console.log("you win");
       this.player.points = this.player.points + 20;
-    }console.log(this.player.points)
+    }
+    console.log(this.player.points);
   }
   isBust(player) {
     if (player.handValue > 21) {
@@ -159,25 +163,53 @@ class Game {
 }
 
 //----------------------------- controls? class? ----------------------//
-$('#hitButton').on('click', function() {
-  game.hit()
-})
+$("#hitButton").on("click", function () {
+  game.hit();
+});
 
-$('#standButton').on('click', function() {
-  game.stand()
-})
-$('#startForm').on('submit', function(event) {
+$("#standButton").on("click", function () {
+  game.stand();
+});
+$("#startForm").on("submit", function (event) {
   event.preventDefault();
-let name = $('#startForm').find('#name').val()
-let numberOfDecks = $('#startForm').find('#numberOfDecks').val()
+  let name = $("#startForm").find("#name").val();
+  let numberOfDecks = $("#startForm").find("#numberOfDecks").val();
+  $("#startMenu").hide(200);
   game = new Game(name, numberOfDecks);
-game.start()
-})
+  game.start();
+});
+
+function renderCard(name, hand, card) {
+  let padding = hand.indexOf(card) * 30;
+  let zIndex = hand.indexOf(card) * 100;
+  let divClass = "";
+  if (name === "cpu") {
+    divClass = "cpu";
+  } else {
+    divClass = "player";
+  }
+
+  $(`<div class="cardSpace"><div class="card">
+<div class="cardText"><h3>${card.rank}<br>${card.suit}</h3></div>
+<div class="cardSuit">${card.suit}</div></div>
+</div>`)
+    .css("padding-left", padding, "z-index", zIndex)
+    .appendTo(`.${divClass} .cardHolder`);
+  $(".card:contains('♦')").addClass("red");
+  $(".card:contains('♥')").addClass("red");
+}
+
+function renderHandValue(name, handValue) {
+  let divId;
+  if (name === "cpu") {
+    divId = "#cpuHandValue";
+  } else {
+    divId = "#playerHandValue";
+  }
+  $(divId).text(handValue);
+}
+
 //----------------------------- game start ----------------------//
-
-
-
-
 
 // const circleType = new CircleType(document.getElementById('rules'));
 // circleType.radius(200).dir(-1);

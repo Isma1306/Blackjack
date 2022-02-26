@@ -8,45 +8,46 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <div class="board">
-      <div class="dealer">
-        <div class="cardHolder">
-          <div class="card"></div>
+    <div id="board">
+      <div id="boardShadow"></div>
+      <div class="cpu">
+          <div class="cardHolder"></div>
+          <h2 id="cpuHandValue">0</h2>
         </div>
-      </div>
-      <div id="rules"><h1>blackjack pays 3 to 2</h1>
-        <h2>Dealer must draw to 16, and stand on all 17's</h2></div>
-
-      <div class="player">
-        <div class="cardHolder">
-          <div class="card">
-            <div class="cardText"><h3>&spades;<br>A</h3></div>
-            <div class="cardSuit">&spades;</div>
+        <div id="rules">
+          <h1>blackjack pays 3 to 2</h1>
+          <h2>Dealer must draw to 16, and stand on all 17's</h2>
+        </div>
+        <div class="player">
+          <div class="cardHolder"></div>
+          <div id="controls">
+            <h2 id="playerHandValue">0</h2>
+            <button id="hitButton">HIT</button>
+            <button id="standButton">STAND</button>
           </div>
         </div>
-        <div class="controls">
-          <button id="hitButton">HIT</button>
-          <button id="standButton">STAND</button>
+        <div id="startMenu">
+          <h1>Welcome!</h1>
+          <h2>Let's play blackjack</h2>
+          <form id="startForm">
+            <label class="form-label" for="name" placeholder="Enter Your Name!">Name</label>
+            <input type="text" name="Name" id="name" /> <br>
+            <label class="form-label" for="NumberOfDecks">Number Of Decks</label>
+            <select name="numberOfDecks" id="numberOfDecks">
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+              <option value="7">7</option>
+              <option value="8">8</option>
+            </select>
+            <button type="submit">Submit</button>
+          </form>
         </div>
-        <form id="startForm">
-          <label class="form-label" for="name">Name</label>
-          <input type="text" name="Name" id="name">
-          <label class="form-label" for="NumberOfDecks">Number Of Decks</label>
-        	<select name="numberOfDecks" id="numberOfDecks">
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-            <option value="6">6</option>
-            <option value="7">7</option>
-            <option value="8">8</option>
-          </select>
-        <button type="submit">Submit</button>
-      </form>
       </div>
     </div>
-
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <!-- <script src="circletype.min.js"></script> -->
     <script src="index.js"></script>
