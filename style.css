@@ -1,3 +1,13 @@
+@import url("https://fonts.googleapis.com/css2?family=Brygada+1918:wght@900&family=Roboto:wght@500&display=swap");
+
+body {
+  background-color: black;
+}
+h1,
+h2 {
+  font-family: "Brygada 1918", serif;
+}
+
 #board {
   display: flex;
   align-items: center;
@@ -6,7 +16,7 @@
   width: 98vw;
   height: 98vh;
   background-color: green;
- 
+  font-family: "Roboto", sans-serif;
 }
 
 #boardShadow {
@@ -23,39 +33,100 @@
   position: fixed;
   margin-left: auto;
   margin-top: 30vh;
-  width: 30vw;
-  height: 30vh;
   padding: 30px;
-  background-color: white;
-  
-  }
-  
-.rules {
+  box-shadow: 1px 1px 10px 4px rgba(0, 0, 0, 0.3);
+  border-radius: 20px;
+  background-color: rgba(0, 0, 0, 0.822);
+  color: aliceblue;
+}
+
+#startMenu > h1 {
+  margin-bottom: -10px;
+}
+
+#startMenu {
+  display: flex;
+  flex-direction: column;
+}
+
+#deckForm,
+#nameForm {
+  margin: 10px;
+}
+
+
+.menuBtn {
+  width: 100%;
+  background-color: rgb(0, 209, 0);
+  box-shadow: 1px 1px 2px 1px rgba(255, 255, 255, 0.3);
+  color: aliceblue;
+  padding: 10px;
+  border-radius: 10px;
+  border: none;
+  font-weight: 900;
+  font-size: 20px;
+  transition: 0.3s;
+}
+.menuBtn:hover {
+  background-color: rgb(0, 252, 0);
+}
+
+#rules {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
   color: darkred;
 }
 
-.dealer {
-  display: flex;
-  align-items: flex-start;
-  justify-content: center;
-  width: 60vw;
-  height: 40vh;
-}
 
-.player {
+#player {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 60vw;
-  height: 40vh;
+  margin-bottom: 20px;
 }
+
 #controls {
+  display: flex;
   z-index: 2000;
+  justify-content: space-around;
+  gap: 20px;
+}
+#hitButton,
+#standButton {
+  box-shadow: 1px 1px 2px 1px rgba(255, 255, 255, 0.3);
+  color: aliceblue;
+  padding: 10px;
+  width: 150px;
+  border-radius: 10px;
+  border: none;
+  font-weight: 900;
+  font-size: 20px;
+  transition: 0.3s;
+}
+#hitButton {
+  background-color: rgb(0, 209, 0);
+}
+#hitButton:hover {
+  background-color: rgb(0, 252, 0);
+}
+#hitButton:disabled {
+  cursor: not-allowed;
+  opacity: 0.4;
+}
+#standButton {
+  background-color: darkred;
+}
+#standButton:hover {
+  background-color: rgb(197, 0, 0);
+}
+#standButton:disabled {
+  cursor: not-allowed;
+  opacity: 0.4;
 }
 
 .cardHolder {
-  
   margin: 20px;
   padding: 10px;
   width: 125px;
@@ -64,6 +135,20 @@
   border-radius: 3%;
 }
 
+.handValue {
+  display: flex;
+  justify-content: center;
+  position: absolute;
+  width: 30px;
+  background-color: rgba(0, 0, 0, 0.418);
+  color: aliceblue;
+  margin-top: 100px;
+  padding: 0px 10px 0px 10px;
+  z-index: 1000;
+  border-radius: 10px;
+  line-height: 15px;
+  font-family: "Brygada 1918", serif;
+}
 
 .card {
   display: flex;
@@ -75,13 +160,13 @@
   box-shadow: 1px 1px 2px 1px rgba(0, 0, 0, 0.3);
   transition: 0.3s;
   position: absolute;
+  font-family: "Brygada 1918", serif;
 }
 
 .card:hover {
   transform: translate(0, -50px);
   box-shadow: 3px 3px 3px 2px rgba(0, 0, 0, 0.3);
   z-index: 200;
- 
 }
 
 .cardText {
@@ -105,5 +190,4 @@
   text-align: center;
   align-self: center;
   font-size: 110px;
-
 }

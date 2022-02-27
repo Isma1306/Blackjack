@@ -120,42 +120,61 @@ class Game {
     player.drawCards(2, mainDeck);
     player.isBlackjack();
     cpu.drawCards(1, mainDeck);
+    if (this.player.blackjack) {
+      this.stand();
+    } else {
+      btnOn("hitButton");
+      btnOn("standButton");
+    }
   }
   restart() {
     this.player.discardHand();
     this.cpu.discardHand();
+    destroyCards();
     const mainDeck = new Deck(this.numOfDecks);
     this.mainDeck = mainDeck;
     this.player.drawCards(2, this.mainDeck);
     this.player.isBlackjack();
     this.cpu.drawCards(1, this.mainDeck);
+    if (this.player.blackjack) {
+      stand();
+    } else {
+      btnOn("hitButton");
+      btnOn("standButton");
+    }
   }
   hit() {
     this.player.drawCards(1, this.mainDeck);
     this.isBust(this.player);
   }
   stand() {
+    btnOff("hitButton");
+    btnOff("standButton");
     while (this.cpu.handValue < 17) {
       this.cpu.drawCards(1, this.mainDeck);
     }
+    renderPoints();
     this.cpu.isBlackjack();
     if (this.player.blackjack === true && this.cpu.blackjack === false) {
-      console.log("you won with a Blackjack!");
+      renderRestart(0, this.player.blackjack); // win with blackjack
       this.player.points = this.player.points + 20 * 1.5;
     } else if ((this.player.blackjack === true && this.cpu.blackjack === true) || this.player.handValue === this.cpu.handValue) {
-      console.log("stand-off");
+      renderRestart(1, this.player.blackjack); // stand off
     } else if (this.player.handValue < this.cpu.handValue && this.cpu.handValue <= 21) {
-      console.log("you lost");
+      renderRestart(2, this.player.blackjack); // lost
       this.player.points = this.player.points - 20;
     } else {
-      console.log("you win");
+      renderRestart(0, this.player.blackjack); // win
       this.player.points = this.player.points + 20;
     }
-    console.log(this.player.points);
   }
   isBust(player) {
     if (player.handValue > 21) {
-      return console.log("you went bust!");
+      player.points = this.player.points - 20;
+      renderPoints();
+      btnOff("hitButton");
+      btnOff("standButton");
+      renderRestart(3, this.player.blackjack); // bust
     } else if (player.handValue <= 21) {
       return console.log("keep playing, what could go wrong?");
     }
@@ -163,12 +182,14 @@ class Game {
 }
 
 //----------------------------- controls? class? ----------------------//
+
 $("#hitButton").on("click", function () {
   game.hit();
 });
 
 $("#standButton").on("click", function () {
   game.stand();
+  renderPoints();
 });
 $("#startForm").on("submit", function (event) {
   event.preventDefault();
@@ -177,24 +198,25 @@ $("#startForm").on("submit", function (event) {
   $("#startMenu").hide(200);
   game = new Game(name, numberOfDecks);
   game.start();
+  renderPoints();
 });
+
+//----------------------------- render GUI ----------------------//
 
 function renderCard(name, hand, card) {
   let padding = hand.indexOf(card) * 30;
-  let zIndex = hand.indexOf(card) * 100;
-  let divClass = "";
+  let divId = "";
   if (name === "cpu") {
-    divClass = "cpu";
+    divId = "cpu";
   } else {
-    divClass = "player";
+    divId = "player";
   }
-
   $(`<div class="cardSpace"><div class="card">
 <div class="cardText"><h3>${card.rank}<br>${card.suit}</h3></div>
 <div class="cardSuit">${card.suit}</div></div>
 </div>`)
-    .css("padding-left", padding, "z-index", zIndex)
-    .appendTo(`.${divClass} .cardHolder`);
+    .css("padding-left", padding)
+    .appendTo(`#${divId} .cardHolder`);
   $(".card:contains('♦')").addClass("red");
   $(".card:contains('♥')").addClass("red");
 }
@@ -207,6 +229,58 @@ function renderHandValue(name, handValue) {
     divId = "#playerHandValue";
   }
   $(divId).text(handValue);
+}
+
+function renderPoints() {
+  console.log(game.player.points);
+  $("#points").text(game.player.points + " Points left!");
+}
+
+function destroyCards() {
+  $(".cardSpace").remove();
+}
+
+function btnOn(id) {
+  $("#" + id).prop("disabled", false);
+}
+
+function btnOff(id) {
+  $("#" + id).prop("disabled", true);
+}
+
+function renderRestart(result, blackjack) {
+  $("#startMenu").empty();
+  if (result === 0 && blackjack) {
+    $("#startMenu").append(`<div class="restartMenu">
+  <h1>${game.playerName} you Won!</h1> <h2>With Blackjack!</h2> <button id="restartBtn" class="menuBtn">Deal</button></div>`);
+  } else if (result === 1 && blackjack) {
+    $("#startMenu").append(`<div class="restartMenu">
+  <h1>Stand-Off</h1> <h2>Two blackjacks at the same time!?</h2> <button id="restartBtn" class="menuBtn">Deal</button></div>`);
+  } else if (result === 1 && blackjack) {
+    $("#startMenu").append(`<div class="restartMenu">
+  <h1>Stand-Off</h1> <h2>Two blackjacks at the same time!?</h2> <button id="restartBtn" class="menuBtn">Deal</button></div>`);
+  } else if (result === 1 && !blackjack) {
+    $("#startMenu").append(`<div class="restartMenu">
+    <h1>Stand-Off</h1> <h2>At least you didn't lose</h2> <button id="restartBtn" class="menuBtn">Deal</button></div>`);
+  } else if (result === 0) {
+    $("#startMenu").append(`<div class="restartMenu">
+      <h1>${game.playerName} you Won!</h1> <h2>If I keep losing they will kick me out!</h2> <button id="restartBtn" class="menuBtn">Deal</button></div>`);
+  } else if (result === 2) {
+    $("#startMenu").append(`<div class="restartMenu">
+      <h1>${game.playerName} you Lost!</h1> <h2>Lucky me!</h2> <button id="restartBtn" class="menuBtn">Deal</button></div>`);
+  } else if (result === 3) {
+    $("#startMenu").append(`<div class="restartMenu">
+      <h1>${game.playerName} went bust!</h1> <h2>I told you to stand!</h2> <button id="restartBtn" class="menuBtn">Deal</button></div>`);
+  }
+
+  $("#startMenu").show();
+
+  console.log("renderRestart");
+
+  $("#restartBtn").on("click", function () {
+    $("#startMenu").hide(200);
+    game.restart();
+  });
 }
 
 //----------------------------- game start ----------------------//
