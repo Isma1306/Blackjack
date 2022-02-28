@@ -1,66 +1,71 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>BlackJack</title>
-    <link rel="stylesheet" href="style.css" />
-  </head>
-  <body>
-    <div id="board">
-      <div id="boardShadow"></div>
-      <div id="cpu">
-          <div class="cardHolder">
-            <div class="handValue"><h2 id="cpuHandValue">0</h2></div>
-            
-          </div>
-          
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BlackJack</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+  <div id="board">
+    <div id="boardShadow"></div>
+    <div id="cpu">
+      <div class="cardHolder">
+        <div class="handValue">
+          <h2 id="cpuHandValue">0</h2>
         </div>
-        <div id="rules">
-          <h1>blackjack pays 3 to 2</h1>
-          <h2>Dealer must draw to 16, and stand on all 17's</h2>
-        </div>
-        <div id="player">
-          <div id="points">0</div>
-          <div class="cardHolder">
-            <div class="handValue"><h2 id="playerHandValue">0</h2></div>
-            
-          </div>
-          <div id="controls">
-            <button id="hitButton" disabled>HIT</button>
-            <button id="standButton" disabled>STAND</button>
-          </div>
-        </div>
-        <div id="startMenu">
-          <h1>Welcome!</h1>
-          <h2>Let's play blackjack!</h2>
-          <form id="startForm">
-           <div id="nameForm">
-             <label class="form-label" for="name" >Name</label>
-            <input type="text" name="Name" id="name" required placeholder="Enter Your Name!" />
-          </div>
-          <div id="deckForm">
-            <label class="form-label" for="NumberOfDecks">Number Of Decks</label>
-            <select name="numberOfDecks" id="numberOfDecks">
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
-              <option value="5">5</option>
-              <option value="6">6</option>
-              <option value="7">7</option>
-              <option value="8">8</option>
-            </select>
-          </div>
-          <button class="menuBtn" type="submit">Start!</button>
-          </form>
-        </div>
-        
       </div>
     </div>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-    <!-- <script src="circletype.min.js"></script> -->
-    <script src="index.js"></script>
-  </body>
+    <div id="rules">
+      <h1 id="rulesBj">blackjack pays 3 to 2</h1>
+      <h2 id="rulesDealer">Dealer must draw to 16, and stand on all 17's</h2>
+    </div>
+    <div id="player">
+      <div id="points">0</div>
+      <div class="cardHolder">
+        <div class="handValue">
+          <h2 id="playerHandValue">0</h2>
+        </div>
+      </div>
+      <div id="controls">
+        <button id="hitBtn" disabled>HIT</button>
+        <button id="restartBtn" class="menuBtn" style="display:none">Deal</button>
+        <button id="standBtn" disabled>STAND</button>
+      </div>
+    </div>
+    <div id="menu">
+      <h1>Welcome!</h1>
+      <h2>Let's play blackjack!</h2>
+      <form id="startForm">
+        <div id="nameForm">
+          <label class="form-label" for="name">Name</label>
+          <input type="text" name="Name" id="name" required placeholder="Enter Your Name!" />
+        </div>
+        <div id="deckForm">
+          <label class="form-label" for="NumberOfDecks">Number Of Decks</label>
+          <select name="numberOfDecks" id="numberOfDecks">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+          </select>
+        </div>
+        <button class="menuBtn" type="submit">Start!</button>
+      </form>
+    </div>
+  </div>
+  </div>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+    integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="circletype.min.js"></script>
+  <script src="index.js"></script>
+</body>
+
 </html>
