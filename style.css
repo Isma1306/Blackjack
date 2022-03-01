@@ -41,7 +41,7 @@ h2 {
 
 }
 #rulesDealer {
-  margin-top: -90px;
+  margin-top: -20px;
   font-size: 2rem;
   color: yellow;
 }
@@ -99,7 +99,7 @@ h2 {
   border-radius: 10px;
   border: none;
   font-weight: 900;
-  font-size: 20px;
+  font-size: 1.2rem;
   transition: 0.3s;
 }
 .menuBtn:hover {
@@ -132,7 +132,7 @@ h2 {
   border-radius: 10px;
   
   font-weight: 900;
-  font-size: 20px;
+  font-size: 1rem;
   transition: 0.3s;
 }
 #hitBtn {
@@ -181,7 +181,7 @@ h2 {
 }
 
 #points {
-  font-size: 20px;
+  font-size: 1.3rem;
   color: aliceblue;
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
 }
@@ -223,7 +223,7 @@ h2 {
   width: 25px;
   margin-left: 3px;
   margin-top: 3px;
-  font-size: 40px;
+  font-size: 2.3rem;
   line-height: 30px;
   text-align: center;
 }
@@ -233,5 +233,5 @@ h2 {
 .cardSuit {
   text-align: center;
   align-self: center;
-  font-size: 110px;
+  font-size: 6.5rem;
 }
