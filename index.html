@@ -6,13 +6,14 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>BlackJack</title>
+  <!-- stylesheet -->
   <link rel="stylesheet" href="style.css" />
-  
 </head>
 
 <body>
   <div id="board">
     <div id="boardShadow"></div>
+    <!-- cpu's side of the board -->
     <div id="cpu">
       <div class="cardHolder">
         <div class="handValue">
@@ -20,10 +21,12 @@
         </div>
       </div>
     </div>
+    <!-- rules in the middle -->
     <div id="rules">
       <h1 id="rulesBj">blackjack pays 3 to 2</h1>
       <h2 id="rulesDealer">Dealer must draw to 16, and stand on all 17's</h2>
     </div>
+    <!-- player's side of the board -->
     <div id="player">
       <div id="points">0</div>
       <div class="cardHolder">
@@ -33,10 +36,11 @@
       </div>
       <div id="controls">
         <button id="hitBtn" disabled>HIT</button>
-        <button id="restartBtn" class="menuBtn" style="display:none">Deal</button>
+        <button id="restartBtn" class="menuBtn" style="display:none">DEAL</button>
         <button id="standBtn" disabled>STAND</button>
       </div>
     </div>
+    <!-- menu -->
     <div id="menu">
       <h1>Welcome!</h1>
       <h2>Let's play blackjack!</h2>
@@ -63,10 +67,11 @@
     </div>
   </div>
   </div>
+  <!-- scripts -->
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"
     integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-    <script src="index.js"></script>
-    <script></script>
+  <script src="index.js"></script>
+  <script></script>
 </body>
 
 </html>

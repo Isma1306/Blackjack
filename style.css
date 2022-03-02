@@ -19,7 +19,6 @@ h2 {
   width: 98vw;
   height: 98vh;
   background-color: green;
-  
 }
 
 #boardShadow {
@@ -36,10 +35,11 @@ h2 {
   flex-direction: column;
   color: darkred;
 }
+
 #rulesBj {
   font-size: 3rem;
-
 }
+
 #rulesDealer {
   margin-top: -20px;
   font-size: 2rem;
@@ -89,6 +89,12 @@ h2 {
   display: flex;
   align-items: center;
 }
+.win {
+  color: rgb(0, 209, 0);
+}
+.lost {
+  color: rgb(197, 0, 0);
+}
 
 .menuBtn {
   width: 100%;
@@ -102,10 +108,10 @@ h2 {
   font-size: 1.2rem;
   transition: 0.3s;
 }
+
 .menuBtn:hover {
   background-color: rgb(0, 252, 0);
 }
-
 
 /* player controls */
 
@@ -123,6 +129,7 @@ h2 {
   justify-content: space-around;
   gap: 20px;
 }
+
 #hitBtn,
 #standBtn {
   box-shadow: 1px 1px 2px 1px rgba(255, 255, 255, 0.3);
@@ -130,29 +137,34 @@ h2 {
   padding: 10px;
   width: 150px;
   border-radius: 10px;
-  
   font-weight: 900;
   font-size: 1rem;
   transition: 0.3s;
 }
+
 #hitBtn {
   border: 1px solid rgb(0, 117, 0);
   background-color: rgb(0, 209, 0);
 }
+
 #hitBtn:hover {
   background-color: rgb(0, 252, 0);
 }
+
 #hitBtn:disabled {
   cursor: not-allowed;
   opacity: 0.4;
 }
+
 #standBtn {
   border: 1px solid rgb(99, 0, 0);
   background-color: darkred;
 }
+
 #standBtn:hover {
   background-color: rgb(197, 0, 0);
 }
+
 #standBtn:disabled {
   cursor: not-allowed;
   opacity: 0.4;
@@ -161,7 +173,6 @@ h2 {
 #restartBtn {
   width: 200px;
 }
-
 
 /* player information */
 
@@ -219,6 +230,7 @@ h2 {
   align-self: flex-start;
   align-content: flex-start;
 }
+
 .cardText h3 {
   width: 25px;
   margin-left: 3px;
@@ -227,9 +239,11 @@ h2 {
   line-height: 30px;
   text-align: center;
 }
+
 .red {
   color: darkred;
 }
+
 .cardSuit {
   text-align: center;
   align-self: center;
