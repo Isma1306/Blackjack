@@ -1,6 +1,9 @@
+// For this project I have used the jquery course, MDN and w3schools.
+//  Besides those the general concept of OOP I've got it from
+// a course of JS I've done in udemy. 
 //----------------------------- deck class -------------------------//
 // I created a class deck so I can have the methods inside the class and
-// the flexibility to use this class even in another game card.
+// the flexibility to use this class even in another card game.
 class Deck {
   constructor(numOfDecks) {
     //---------- deck properties
@@ -77,31 +80,27 @@ class Player {
 
   drawCards(number = 1, deck) {
     // take cards from the deck and put them in the hand
-    const { hand } = this;
     let newCards = [];
     for (let i = 0; i < number; i++) {
       let card = deck.cards.pop();
-      hand.push(card);
+      this.hand.push(card);
       newCards.push(card);
     }
     this.countHand();
-    this.checkBlackjack();
     return newCards; // return the new cards so the gui can render them later
   }
 
   discardHand(deck) {
     // take the cards from the player's hand and put them back to the deck
-    const { hand } = this;
-    for (let i = hand.length; i > 0; i--) {
-      deck.discarded.push(hand.pop());
+      for (let i = this.hand.length; i > 0; i--) {
+      deck.discarded.push(this.hand.pop());
     }
   }
 
   countHand() {
     // update the value of the hand
-    const { hand } = this;
     let handValue = 0;
-    hand.forEach(function (card) {
+    this.hand.forEach(function (card) {
       let rank = card.rank;
       if (rank === "K" || rank === "J" || rank === "Q") {
         handValue = handValue + 10;
@@ -109,7 +108,7 @@ class Player {
         handValue = handValue + rank;
       }
     });
-    hand.forEach(function (card) {
+    this.hand.forEach(function (card) {
       let rank = card.rank;
       if (rank === "A" && handValue + 11 <= 21) {
         handValue = handValue + 11;
@@ -176,7 +175,6 @@ class Game {
   }
 
   stand(gui) {
-    console.log("stand");
     const { player, cpu } = this;
     while (cpu.countHand() < 17) {
       // dealer take cards until is above 16
@@ -241,7 +239,6 @@ class Gui {
   }
 
   renderPoints(player) {
-    console.log(player.points);
     $("#points").text(player.points + " Points left!");
   }
 
@@ -280,7 +277,7 @@ class Gui {
         break;
       case "cpuBust":
         $("#menu").append(`<h1 class="win">The dealer went bust!</h1>
-        <h2>${game.cpu.hand[game.cpu.hand.length - 2].rank} and ${game.cpu.hand[game.cpu.hand.length - 1].rank} is...</h2>`);
+        <h2>So, ${game.cpu.hand[game.cpu.hand.length - 2].rank} plus ${game.cpu.hand[game.cpu.hand.length - 1].rank} is...Ups!</h2>`);
         break;
       case "tie":
         $("#menu").append(`<h1>Stand-Off</h1> <h2>At least you didn't lose.</h2>`);
